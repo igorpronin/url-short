@@ -11,10 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "app-root-path": "^3.0.0",
+    "axios": "^0.19.2",
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.2.0",
+    "ejs": "^3.0.1",
     "express": "^4.17.1",
     "helmet": "^3.21.2",
-    "mongodb": "^3.5.2"
+    "mongodb": "^3.5.2",
+    "vue": "^2.6.11"
   }
 }
