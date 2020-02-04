@@ -11,28 +11,40 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>URL-shortener</title>
 </head>
-<body id="app">
-  <div class="bg-warning">
+<body>
+  <div id="app">
+    <div class="bg-warning">
+      <div class="container">
+        <div class="row mb-5">
+          <h1 class="col text-light">
+            URL-shortener
+          </h1>
+        </div>
+      </div>
+    </div>
     <div class="container">
       <div class="row mb-5">
-        <h1 class="col text-light">
-          URL-shortener
-        </h1>
+        <div class="col">
+          <h5>Enter any URL</h5>
+          <form class="mb-1" method="post" action="/link/create" @submit.prevent="submit">
+            <input v-model="URLInputValue" class="form-control mb-2" type="url" name="link">
+            <input class="btn btn-success" :disabled="submitted" type="submit">
+          </form>
+          <div class="text-danger" v-if="showErr">Field is empty</div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="row mb-5">
-      <div class="col">
-        <h5>Enter any URL</h5>
-        <form method="post" action="/link/create">
-          <input class="form-control mb-2" type="url" name="link">
-          <input class="btn btn-secondary" type="submit">
-        </form>
+      <div v-if="showRes" class="row mb-2">
+        <h3 class="col">
+          New short link:
+        </h3>
       </div>
-    </div>
+      <div v-if="showRes" class="row mb-5">
+        <div class="col">
+          <span>{{ res.URL }}</span> - <a :href="res.shortURL" target="_blank">{{ res.shortURL }}</a>
+        </div>
+      </div>
 
-    <% if (links) { %>
+      <% if (links) { %>
       <div class="row">
         <h3 class="col">
           My links
@@ -42,29 +54,31 @@
       <table class="table">
 
         <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Original URL</th>
-            <th scope="col">Shorten URL</th>
-            <th scope="col">Visits</th>
-          </tr>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Original URL</th>
+          <th scope="col">Shorten URL</th>
+          <th scope="col">Visits</th>
+        </tr>
         </thead>
         <tbody>
-          <% for (let i = 0; i < links.length; i++) { %>
-          <tr>
-            <th scope="row"><%= i + 1%></th>
-            <td><%= links[i].URL %></td>
-            <td><a href="<%= links[i].shortURL %>" target="_blank"><%= links[i].shortURL %></a></td>
-            <td><%= links[i].visits %></td>
-          </tr>
-          <% } %>
+        <% for (let i = 0; i < links.length; i++) { %>
+        <tr>
+          <th scope="row"><%= i + 1%></th>
+          <td><%= links[i].URL %></td>
+          <td><a href="<%= links[i].shortURL %>" target="_blank"><%= links[i].shortURL %></a></td>
+          <td><%= links[i].visits %></td>
+        </tr>
+        <% } %>
         </tbody>
 
       </table>
 
-    <% } %>
+      <% } %>
+    </div>
   </div>
   <script src="js/vue.js"></script>
+  <script src="js/axios.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

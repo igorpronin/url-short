@@ -17,9 +17,6 @@ router.post('/create', (req, res, next) => {
           if (err) throw err;
           console.log('1 document inserted');
           const userId = dbRes.insertedId.toString();
-          res
-            .cookie('userId', userId, {expires: new Date(Date.now() + 9000000000000)})
-            .end();
           const link = {
             userId: userId,
             URL: req.body.link,
@@ -41,7 +38,12 @@ router.post('/create', (req, res, next) => {
                   db.close();
                 }
               );
-            res.end();
+            res
+              .cookie('userId', userId, {expires: new Date(Date.now() + 9000000000000)})
+              .json({
+                URL: link.URL,
+                shortURL: `${req.protocol}://${req.headers.host}/${link.shortURL}`,
+              });
           });
         });
       });
@@ -70,7 +72,10 @@ router.post('/create', (req, res, next) => {
               db.close();
             }
           );
-          res.end();
+          res.json({
+            URL: link.URL,
+            shortURL: `${req.protocol}://${req.headers.host}/${link.shortURL}`,
+          });
         });
       });
     }

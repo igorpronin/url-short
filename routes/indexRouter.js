@@ -44,7 +44,7 @@ router.get('/', (req, res, next) => {
     });
   } else {
     console.log('NON auth user');
-    res.render('pages/index');
+    res.render('pages/index', { links: false });
   }
 
 });
