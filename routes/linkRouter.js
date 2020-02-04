@@ -8,8 +8,7 @@ const dbName = 'urlShortener';
 router.get('*', (req, res, next) => {
 
   const shortLink = req.originalUrl.substr(1);
-
-  console.log(shortLink);
+  console.log('route: *');
 
   MongoClient.connect(url, {useUnifiedTopology: true}, (err, db) => {
     if (err) throw err;
@@ -19,7 +18,6 @@ router.get('*', (req, res, next) => {
       {},
       (err, dbRes) => {
         if (dbRes) {
-          console.log(dbRes);
           const linkId = dbRes._id;
           const longURL = dbRes.URL;
           dbo.collection("links").findOneAndUpdate(
@@ -31,7 +29,7 @@ router.get('*', (req, res, next) => {
             }
           )
         } else {
-          res.end();
+          res.status(404).render('pages/404');
         }
       });
   });

@@ -1,18 +1,69 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>URL-shortener</title>
 </head>
 <body id="app">
-  <h1>URL-shortener</h1>
-  <form method="post" action="/link/create">
-    <input type="url" name="link">
-    <input type="submit">
-  </form>
+  <div class="bg-warning">
+    <div class="container">
+      <div class="row mb-5">
+        <h1 class="col text-light">
+          URL-shortener
+        </h1>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col">
+        <h5>Enter any URL</h5>
+        <form method="post" action="/link/create">
+          <input class="form-control mb-2" type="url" name="link">
+          <input class="btn btn-secondary" type="submit">
+        </form>
+      </div>
+    </div>
+
+    <% if (links) { %>
+      <div class="row">
+        <h3 class="col">
+          My links
+        </h3>
+      </div>
+
+      <table class="table">
+
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Original URL</th>
+            <th scope="col">Shorten URL</th>
+            <th scope="col">Visits</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (let i = 0; i < links.length; i++) { %>
+          <tr>
+            <th scope="row"><%= i + 1%></th>
+            <td><%= links[i].URL %></td>
+            <td><a href="<%= links[i].shortURL %>" target="_blank"><%= links[i].shortURL %></a></td>
+            <td><%= links[i].visits %></td>
+          </tr>
+          <% } %>
+        </tbody>
+
+      </table>
+
+    <% } %>
+  </div>
   <script src="js/vue.js"></script>
   <script src="js/main.js"></script>
 </body>

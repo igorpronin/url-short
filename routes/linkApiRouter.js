@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { MongoClient, ObjectID } = require('mongodb');
-// const test = require('assert');
 const url = 'mongodb://localhost:27017';
 const dbName = 'urlShortener';
 

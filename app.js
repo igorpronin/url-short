@@ -1,7 +1,6 @@
 const createError = require('http-errors');
 const path = require('path');
 const express = require('express');
-const router = express.Router();
 const app = express();
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
@@ -10,7 +9,6 @@ const { MongoClient, ObjectID } = require('mongodb');
 // const test = require('assert');
 const url = 'mongodb://localhost:27017';
 const dbName = 'urlShortener';
-
 
 const appRoot = require('app-root-path');
 const appRootPath = appRoot.path;
