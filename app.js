@@ -40,6 +40,6 @@ app.use('/', indexRouter);
 app.use('/link', linkApiRouter);
 app.use('*', linkRouter);
 
-app.listen(3000, () => {
-  console.log('The server is listening on port 3000...');
+app.listen(+process.env.PORT, () => {
+  console.log(`The server is listening on port ${process.env.PORT}...`);
 });
